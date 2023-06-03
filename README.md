@@ -4,7 +4,7 @@
 This is the Programação de Soluções Computacionais(PSC) college subject final test 
 
 ## What is it supposed to be
-The idea behind it is to make a program that will sell books. So we have two kinds of users, (1) buyer and (2) seller. A database will likely be implemented in the future, so the program will be full working.
+The idea behind it is to make a program that will sell books. We have two kinds of users, (1) buyer and (2) seller. A database will likely be implemented in the future, so the program will be full working.
 But, for now, we will stick to the basics and just make the classes and make it run with a database simulation.
 
 ## Who's Working on it
