@@ -41,3 +41,17 @@ bool Utils::containsOnlyNumbers(string& string) {
 	}
 	return true;
 }
+bool Utils::shorterThan(string& string, int maxSize) { 
+	if (string.size() > maxSize) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+/*  Dont know if it'll be needed
+bool foundSameString(string& stringBeingTested, string& existingString) {
+	if (existingString == stringBeingTested ? true : false);
+}
+*/
