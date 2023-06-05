@@ -22,7 +22,7 @@ void User::setName(string name) {
 		setNameComplete(name, surname);
 	}
 	else {
-		cout << "\nValor inválido. Nomes não podem conter números, caracteres especiais ou espaço.";
+		cout << "\nValor invÃ¡lido. Nomes nÃ£o podem conter nÃºmeros, caracteres especiais ou espaÃ§o.";
 	}	
 }
 string User::getName() { return name; }
@@ -33,7 +33,7 @@ void User::setSurname(string surname) {
 		setNameComplete(name, surname);
 	}
 	else {
-		cout << "\nValor inválido. Nomes não podem conter números ou caracteres especiais.";
+		cout << "\nValor invÃ¡lido. Nomes nÃ£o podem conter nÃºmeros ou caracteres especiais.";
 	}
 }
 		
@@ -46,7 +46,7 @@ void User::setPhoneNumber(string phoneNumber) {
 		this->phoneNumber = phoneNumber;
 	}
 	else {
-		cout << "\nNúmero de telefone inválido. Número de telefone só pode conter números.";
+		cout << "\nNÃºmero de telefone invÃ¡lido. NÃºmero de telefone sÃ³ pode conter nÃºmeros.";
 	}
 }
 string User::getPhoneNumber() { return phoneNumber; }
@@ -56,7 +56,7 @@ void User::setEmail(string email) {
 		this->email = email;
 	}
 	else {
-		cout << "Email inválido.";
+		cout << "Email invÃ¡lido.";
 	}
 }
 string User::getEmail() { return this->email; }
