@@ -5,14 +5,13 @@
 #include <vector>
 #include "Utils.h"
 
-using namespace std;
 
 class Book {
 public:
 	Book(string title, int pages, string bookSummary, string condition, string genre, bool bargainable, float price, string author, string publishingCompany);
 	Utils *usingUtils;
 
-	void setTitle(string title);
+	void setTitle();
 	string getTitle();
 	
 	void setPages(int pages);
@@ -24,19 +23,19 @@ public:
 	void setCondition();
 	string getCondition();
 
-	void addNewGenre(string newGenre);
+	void addNewGenre();
 	string getGenres(int whichGenre);
 
-	void setBargainable(bool bargainable);
+	void setBargainable();
 	bool getBargainable();
 
 	void setPrice(float price);
 	float getPrice();
 
-	void setAuthor(string author);
+	void setAuthor();
 	string getAuthor();
 
-	void setPublishingCompany(string publishingCompany);
+	void setPublishingCompany();
 	string getPublishingCompany();
 
 	void showBookInfo();
@@ -51,8 +50,5 @@ private:
 	string author;
 	string publishingCompany;
 };
-
-
-
 
 #endif
