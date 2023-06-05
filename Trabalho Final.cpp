@@ -21,7 +21,7 @@ int main()
     
     Book* bookTeste = new Book("title", 100, "só testando o livro", "inteiro", "genreTest", true, 10.03, "Eu Mesmo", "Euzinho");
 
-    // Dúvida! As restrições foram todas feitas nos métodos set, seria melhor preencher um por um dos valores? Ou criar restrições no código novamente?
+   // Dúvida! As restrições foram todas feitas nos métodos set, mas o construtot não recebe essas restrições. O que eu faço? Criar restrições novamente quando for chamar o construtor??
     bookTeste->addNewGenre("Teste Gênero");
     bookTeste->showBookInfo();
 }
