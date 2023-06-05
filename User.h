@@ -3,12 +3,11 @@
 #include <iostream>
 #include "Date.h"
 #include "Utils.h"
-using namespace std;
 
 class User {
 public:
 	User(string name, string surname, Date birthDate, string phoneNumber, string email, string password);
-	Utils* usingUtils;
+	Utils *usingUtils;
 
 	void setNameComplete(string name, string surname);
 	string getNameCompelte();
