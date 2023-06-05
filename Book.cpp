@@ -1,5 +1,6 @@
 #include "Book.h"
-const int titleMaxSize = 80;
+
+// Tem que revisar isso aqui, se to utilizando tudo poss√≠vel de usingUtils;
 
 Book::Book(string title, int pages, string bookSummary, string condition, string genre, bool bargainable, float price, string author, string publishingCompany) {
 	this->title = title;
@@ -9,54 +10,29 @@ Book::Book(string title, int pages, string bookSummary, string condition, string
 	this->condition = condition;
 	this->genres.push_back(genre);
 	this->bargainable = bargainable;
-	// N„o consegui fazer ficar sÛ c 2 casas decimais 
-	// se mudar aqui tem q mudar no set tambÈm
+	// N√£o consegui fazer ficar s√≥ c 2 casas decimais 
+	// se mudar aqui tem q mudar no set tamb√©m
 	this->price = round(price);
 	this->author = author;
 	this->publishingCompany = publishingCompany;
-	usingUtils = new Utils();
+	Utils *usingUtils = new Utils();
 }
 
-void Book::setTitle(string title) {
-	// Donno if would be better to declare titleMaxSize here, ask professor later
-	if (usingUtils->shorterThan(title, titleMaxSize)) { this->title = title; }
-	else {
-		cout << "\nO tÌtulo deve conter no m·ximo " << titleMaxSize << " characteres.";
-	}
-}
+void Book::setTitle() { usingUtils->setBookTitle(); }
 string Book::getTitle() { return title; }
 
-void Book::setCondition() {
-	int newConditionChoice;
-	string newCondition;
-	cout << "\nQual a condiÁ„o do livro?\n1. Novo\n2. Seminovo\n3. Usado\n4. Velho";
-	cin >> newConditionChoice;
-	switch (newConditionChoice) {
-	case 1:
-		newCondition = "Novo";
-		break;
-	case 2:
-		newCondition = "Seminovo";
-		break;
-	case 3:
-		newCondition = "Usado";
-		break;
-	case 4:
-		newCondition = "Velho";
-		break;
-	default:
-		newCondition = condition;
-		cout << "\nValor inv·lido.";
-	}
-	condition = newCondition;
-}
+void Book::setCondition() { condition = usingUtils->chooseFromAllConditions(); }
 string Book::getCondition() { return condition; }
 
-void Book::addNewGenre(string newGenre){
+// Esses m√©todos eu vou ter que refazer depois, talvez inserir um n√∫mero X de g√™neros PR√â DEFINIDOS no construtor mesmo e n√£o alterar mais depois;.
+void Book::addNewGenre(){
+	// revisar !!!!!
+	string newGenre;
 	bool foundSameGenre = false;
 	for(int i = 0; i < genres.size(); i++){
+		newGenre = usingUtils->chooseFromAllAvailableGenres();
 		if (genres[i] == newGenre) {
-			cout << "\nGÍnero j· inserido.";
+			cout << "\nG√™nero j√° inserido.";
 			foundSameGenre = true;
 			break;
 		}
@@ -70,29 +46,16 @@ string Book::getGenres(int whichGenre) {
 	return genres[whichGenre];
 }
 
-void Book::setBargainable(bool bargainable){
-	this->bargainable = bargainable;
-}
+void Book::setBargainable() { bargainable = usingUtils->isBargainable(); }
 bool Book::getBargainable() { return bargainable; }
 
 void Book::setPrice(float price) { this->price = round(price); }
 float Book::getPrice() { return price; }
 
-void Book::setAuthor(string author){ 
-	if (!usingUtils->containsNumbers(author) && !usingUtils->containsSpecialCharacters(author)) {
-		this->author = author;
-	}
-	else {
-		cout << "\nNome inv·lido. Nomes n„o podem ter caracteres especiais ou n˙meros.";
-	}
-}
+void Book::setAuthor() { usingUtils->setAuthorName(); }
 string Book::getAuthor() { return author; }
 
-void Book::setPublishingCompany(string publishingCompany){
-	if (!usingUtils->containsNumbers(publishingCompany) && !usingUtils->containsSpecialCharacters(publishingCompany)) {
-		this->publishingCompany = publishingCompany;
-	}
-}
+void Book::setPublishingCompany() { usingUtils->setPublishingCompany(); }
 string Book::getPublishingCompany() { return publishingCompany; }
 
 void Book::setPages(int pages) {
@@ -100,7 +63,7 @@ void Book::setPages(int pages) {
 		this->pages = pages;
 	}
 	else {
-		cout << "\nN˙mero de p·ginas n„o pode ser menor ou igual a 0.";
+		cout << "\nN√∫mero de p√°ginas n√£o pode ser menor ou igual a 0.";
 	}
 }
 int Book::getPages() { return pages; }
@@ -108,14 +71,14 @@ int Book::getPages() { return pages; }
 string Book::getBookSummary() { return bookSummary; }
 
 void Book::showBookInfo() {
-	cout << "\nTÌtulo: " << title;
+	cout << "\nT√≠tulo: " << title;
 	cout << "\nResumo: " << bookSummary;
-	cout << "\nGÍneros: ";
+	cout << "\nG√™neros: ";
 	for (int i = 0; i < genres.size(); i++) {
 		cout << genres[i];
 	}
 	cout << "\nAutor: " << author;
 	cout << "\nEditora: " << publishingCompany;
-	cout << "\nPreÁo: " << price;
+	cout << "\nPre√ßo: " << price;
 
 }
