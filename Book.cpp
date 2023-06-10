@@ -15,21 +15,28 @@ Book::Book(string title, int pages, string bookSummary, string condition, string
 	this->price = round(price);
 	this->author = author;
 	this->publishingCompany = publishingCompany;
-	Utils *usingUtils = new Utils();
+	Utils* usingUtils = new Utils();
 }
 
-void Book::setTitle() { usingUtils->setBookTitle(); }
+void Book::setTitle() {
+	// tava dando erro sem isso, vou botar em todos só pra garantir dps confiro com o professor
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	this->title = usingUtils->formatBookTitle();
+}
 string Book::getTitle() { return title; }
 
-void Book::setCondition() { condition = usingUtils->chooseFromAllConditions(); }
+void Book::setCondition() {
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	condition = usingUtils->chooseFromAllConditions();
+}
 string Book::getCondition() { return condition; }
 
 // Esses métodos eu vou ter que refazer depois, talvez inserir um número X de gêneros PRÉ DEFINIDOS no construtor mesmo e não alterar mais depois;.
-void Book::addNewGenre(){
+void Book::addNewGenre() {
 	// revisar !!!!!
 	string newGenre;
 	bool foundSameGenre = false;
-	for(int i = 0; i < genres.size(); i++){
+	for (int i = 0; i < genres.size(); i++) {
 		newGenre = usingUtils->chooseFromAllAvailableGenres();
 		if (genres[i] == newGenre) {
 			cout << "\nGênero já inserido.";
@@ -46,25 +53,33 @@ string Book::getGenres(int whichGenre) {
 	return genres[whichGenre];
 }
 
-void Book::setBargainable() { bargainable = usingUtils->isBargainable(); }
+void Book::setBargainable() {
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	bargainable = usingUtils->isBargainable();
+}
 bool Book::getBargainable() { return bargainable; }
 
-void Book::setPrice(float price) { this->price = round(price); }
+void Book::setPrice() {
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	this->price = usingUtils->formatPrice();
+}
 float Book::getPrice() { return price; }
 
-void Book::setAuthor() { usingUtils->setAuthorName(); }
+void Book::setAuthor() {
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	this->author = usingUtils->formatAuthorName();
+}
 string Book::getAuthor() { return author; }
 
-void Book::setPublishingCompany() { usingUtils->setPublishingCompany(); }
+void Book::setPublishingCompany() {
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	publishingCompany = usingUtils->formatPublishingCompany();
+}
 string Book::getPublishingCompany() { return publishingCompany; }
 
 void Book::setPages(int pages) {
-	if (pages > 0) {
-		this->pages = pages;
-	}
-	else {
-		cout << "\nNúmero de páginas não pode ser menor ou igual a 0.";
-	}
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+	this->pages = usingUtils->formatPageNumber();
 }
 int Book::getPages() { return pages; }
 
