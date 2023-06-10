@@ -1,6 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 #include <iostream>
+#include <string>
 using namespace std;
 
 
@@ -17,12 +18,14 @@ public:
 	// bool foundSameString(string& stringBeingTested, string& existingString); Don't know if it'll be needed
 
 	// more specific utils
-	string setAuthorName();
-	string setBookTitle();
+	string formatAuthorName();
+	string formatBookTitle();
 	string chooseFromAllAvailableGenres();
 	string chooseFromAllConditions();
 	bool isBargainable();
-	string setPublishingCompany();
+	string formatPublishingCompany();
+	int formatPageNumber();
+	float formatPrice();
 };
 
 #endif
