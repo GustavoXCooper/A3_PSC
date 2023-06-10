@@ -1,46 +1,46 @@
 #include "Seller.h"
+#include <Windows.h>
 
 Seller::Seller(string name, string surname, Date birthDate, string phoneNumber, string email, string password) : User(name, surname, birthDate, phoneNumber, email, password) {
-	Utils* usingUtils = new Utils();
+	this->usingUtils = usingUtils;
 }
 
 
 
-void Seller::addNewBook(Book book){
+void Seller::addNewBook() {
 	string bookTitle, bookSummary, genre, condition, authorName, publishingCompany;
-	bool bargainable;
+	bool bargainable, running = true;
 	float price;
 	int pages;
 
-	// talvez transformar isso em uma funÁ„o de utils, ai sÛ entra com o tÌtulo (que no caso È resigtrando livro)
+	// talvez transformar isso em uma fun√ß√£o de utils, ai s√≥ entra com o t√≠tulo (que no caso √© resigtrando livro)
 	cout << "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
 	cout << "\n=-=-=-=-= Registrando Livro =-=-=-=-=-=";
 	cout << "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
 
-	bookTitle = usingUtils->setBookTitle();
+	bookTitle = usingUtils->formatBookTitle();
+	pages = usingUtils->formatPageNumber();
 
-	cout << "\n\nInsira o n˙mero de p·ginas do livro: ";
-	cin >> pages;
-	
-	// Talvez criar uma classe sÛ pra isso, com alguns arrays, sendo cada um deles 1 paragr·fo
+	// Talvez criar uma classe s√≥ pra isso, com alguns arrays, sendo cada um deles 1 paragr√°fo
+	// Ou um array dentro de livro mesmo
 	cout << "\n\nInsira o resumo do livro: ";
-	cin >> bookSummary;
+	getline(cin, bookSummary);
 
 	genre = usingUtils->chooseFromAllAvailableGenres();
 	bargainable = usingUtils->isBargainable();
 	condition = usingUtils->chooseFromAllConditions();
+	// nao aceita float s√≥ int
+	cin.ignore();
+	price = usingUtils->formatPrice();
 
-	cout << "\nInsira o valor de venda: ";
-	cin >> price;
-
-	authorName = usingUtils->setAuthorName();
-	publishingCompany = usingUtils->setPublishingCompany();
+	authorName = usingUtils->formatAuthorName();
+	publishingCompany = usingUtils->formatPublishingCompany();
 
 	Book newBook(bookTitle, pages, bookSummary, condition, genre, bargainable, price, authorName, publishingCompany);
 	books.push_back(newBook);
 
 }
-void Seller::removeBook(){
+void Seller::removeBook() {
 	int choice;
 	cout << "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
 	cout << "\n=-=-=-=-=  Removendo Livro  =-=-=-=-=-=";
@@ -48,16 +48,17 @@ void Seller::removeBook(){
 
 	cout << "\n\nLista de Livros: ";
 	for (int i = 0; i < books.size(); i++) {
-		cout << (i + 1) << "." << books[i].getTitle();
+		cout << endl << (i + 1) << "." << books[i].getTitle();
 	}
-	cout << "Qual livro deseja remover?";
+	cout << "\nQual livro deseja remover? ";
 	cin >> choice;
 	choice--;
 
 	books.erase(books.begin() + choice);
 }
-void Seller::editBook(){
+void Seller::editBook() {
 	int bookChoice, dataOption, pages;
+	string string;
 	float price;
 	bool running = true;
 	cout << "\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=";
@@ -72,8 +73,8 @@ void Seller::editBook(){
 	cin >> bookChoice;
 	bookChoice--;
 
-	cout << "\nQual informaÁ„o deseja alterar? "; 
-	cout << "\n1. TÌtulo\n2. N∞ de p·ginas\n3. CondiÁ„o\n4. Negoci·vel\n5. PreÁo\n6. Autor\n7. Editora";
+	cout << "\nQual informa√ß√£o deseja alterar? ";
+	cout << "\n1. T√≠tulo\n2. N¬∞ de p√°ginas\n3. Condi√ß√£o\n4. Negoci√°vel\n5. Pre√ßo\n6. Autor\n7. Editora";
 	cin >> dataOption;
 	while (running) {
 		switch (dataOption) {
@@ -82,7 +83,7 @@ void Seller::editBook(){
 			running = false;
 			break;
 		case 2:
-			cout << "\nInsira o n˙mero de p·ginas: ";
+			cout << "\nInsira o n√∫mero de p√°ginas: ";
 			cin >> pages;
 			books[bookChoice].setPages(pages);
 			running = false;
@@ -96,9 +97,7 @@ void Seller::editBook(){
 			running = false;
 			break;
 		case 5:
-			cout << "\nInsira o valor: ";
-			cin >> price;
-			books[bookChoice].setPrice(price);
+			books[bookChoice].setPrice();
 			running = false;
 			break;
 		case 6:
@@ -110,24 +109,23 @@ void Seller::editBook(){
 			running = false;
 			break;
 		default:
-			cout << "Valor inv·lido, tente novamente;";
+			cout << "Valor inv√°lido, tente novamente.4";
 		}
 	}
-	
+
 }
-Book Seller::getBook(int bookNumber){
+Book Seller::getBook(int bookNumber) {
 	return books[bookNumber];
 }
-
-void Seller::addNewComplaint(){
+void Seller::addNewComplaint() {
 	string reason, description;
-	cout << "\nInsira o motivo da den˙ncia: ";
+	cout << "\nInsira o motivo da den√∫ncia: ";
 	cin >> reason;
-	cout << "\nInsira uma descriÁ„o da den˙ncia; ";
+	cout << "\nInsira uma descri√ß√£o da den√∫ncia; ";
 	cin >> description;
 	Complaint complaint(reason, description);
 	complaints.push_back(complaint);
 }
-Complaint Seller::getComplaint(int complaintNumber){
+Complaint Seller::getComplaint(int complaintNumber) {
 	return complaints[complaintNumber];
 }
