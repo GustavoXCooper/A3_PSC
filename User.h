@@ -7,14 +7,14 @@
 class User {
 public:
 	User(string name, string surname, Date birthDate, string phoneNumber, string email, string password);
-	Utils *usingUtils;
+	Utils* usingUtils;
 
 	void setNameComplete(string name, string surname);
 	string getNameCompelte();
 
 	void setName(string name);
 	string getName();
-	
+
 	void setSurname(string surname);
 	string getSurname();
 
@@ -30,7 +30,7 @@ private:
 	string name;
 	string surname;
 	string nameComplete;
-	Date *birthDate;
+	Date* birthDate;
 	string phoneNumber;
 	string email;
 	string password;
