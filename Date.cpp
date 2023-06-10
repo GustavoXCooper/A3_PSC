@@ -6,7 +6,7 @@ Date::Date(int day, int month, int year) {
 	}
 	else {
 		this->day = 1;
-	} 
+	}
 
 	if (month > 1 && month < 12) {
 		this->month = month;
@@ -26,7 +26,8 @@ string Date::GetDay() {
 	string dayString;
 	if (day < 10) {
 		dayString = "0" + std::to_string(day);
-	} else {
+	}
+	else {
 		dayString = std::to_string(day);
 	}
 	return dayString;
@@ -36,13 +37,13 @@ void Date::SetDay(int day) {
 		this->day = day;
 	}
 	else {
-		cout << "\nValor inserido é inválido.";
+		cout << "\nValor inserido Ã© invÃ¡lido1.";
 	}
 }
 
-string Date::GetMonth(){
+string Date::GetMonth() {
 	string monthString;
-	if (month< 10) {
+	if (month < 10) {
 		monthString = "0" + std::to_string(month);
 	}
 	else {
@@ -51,16 +52,16 @@ string Date::GetMonth(){
 	return monthString;
 }
 
-void Date::SetMonth(int month) { 
+void Date::SetMonth(int month) {
 	if (month > 0 && month <= 12) {
 		this->month = month;
 	}
 	else {
-		cout << "\nValor inserido é inválido.";
+		cout << "\nValor inserido Ã© invÃ¡lido2.";
 	}
-} 
+}
 
-string Date::GetYear(){
+string Date::GetYear() {
 	return to_string(year);
 }
 
@@ -69,7 +70,7 @@ void Date::SetYear(int year) {
 		this->year = year;
 	}
 	else {
-		cout << "\nValor inserido é inválido";
+		cout << "\nValor inserido Ã© invÃ¡lido.3";
 	}
 }
 
@@ -80,4 +81,3 @@ string Date::GetFullDate() {
 
 	return fullDate;
 }
-
