@@ -8,17 +8,13 @@
 
 class Seller : public User {
 public:
-	Utils* usingUtils;
 	Seller(string name, string surname, Date birthDate, string phoneNumber, string email, string password);
-	void addNewBook(Book book);
+	void addNewBook();
 	void removeBook();
 	void editBook();
 	Book getBook(int bookNumber);
-
 	void addNewComplaint();
 	Complaint getComplaint(int complaintNumber);
-
-	string setBookName();
 
 private:
 	vector<Complaint> complaints;
@@ -29,3 +25,4 @@ private:
 
 
 #endif
+
