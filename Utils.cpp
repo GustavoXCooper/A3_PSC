@@ -4,15 +4,17 @@ Utils::Utils() {}
 
 bool Utils::containsSpecialCharacters(string& string) {
 	for (char c : string) {
-		if (!isalpha(c)) {
-			return true;
+		if (!isspace(c)) {
+			if (!isalpha(c)) {
+				return true;
+			}
 		}
 	}
 	return false;
 }
 bool Utils::containsNumbers(string& string) {
 	for (char c : string) {
-		if (!isdigit(c)) {
+		if (isdigit(c)) {
 			return true;
 		}
 	}
@@ -41,7 +43,7 @@ bool Utils::containsOnlyNumbers(string& string) {
 	}
 	return true;
 }
-bool Utils::shorterThan(string& string) { 
+bool Utils::shorterThan(string& string) {
 	if (string.size() > 80) {
 		return false;
 	}
@@ -59,31 +61,38 @@ bool foundSameString(string& stringBeingTested, string& existingString) {
 
 // This are more specific utils
 
-string Utils::setAuthorName() {
-	string name;
-	do {
-		cout << "\n\nInsira o nome do autor: ";
-		cin >> name;
-
-		if (containsSpecialCharacters(name) || containsNumbers(name)) {
-			cout << "Nome não pode conter caracteres especiais ou números.";
-		}
-	} while (containsSpecialCharacters(name) || containsNumbers(name));
-	return name;
-}
-string Utils::setBookTitle() {
-	string name;
+string Utils::formatAuthorName() {
 	bool running = true;
+
+	string name;
+	cout << "\nInsira o nome do autor: ";
+	// pedir pro sor explicar isso tava dando um erro insuportável sem isso
+	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 	while (running) {
-		cout << "\nInsira o título do livro: ";
-		cin >> name;
-		if (shorterThan(name)) {
-			running = false;
+		getline(cin, name);
+		if (containsSpecialCharacters(name) || containsNumbers(name)) {
+			cout << "\nNome não pode conter caracteres especiais ou números.\n";
 		}
 		else {
-			cout << "\nO título deve conter no máximo " << 80 << " characteres.";
+			running = false;
 		}
 	}
+
+	return name;
+
+}
+string Utils::formatBookTitle() {
+	string name;
+
+	cout << "\nInsira o título do livro: ";
+	getline(cin, name);
+
+	if (!shorterThan(name)) {
+		cout << "\nO título deve conter no máximo " << 80 << " characteres.\n";
+		name = formatBookTitle();
+	}
+
 	return name;
 }
 // Tanto para gênero quanto condições, poderia criar uma classe com um array dentro e tirar as opções de la seria melhor? Ou assim é melhor?
@@ -94,7 +103,7 @@ string Utils::chooseFromAllAvailableGenres() {
 	cout << "\n\nEscolha o gênero a ser registrado: ";
 	cout << "\n1. Romance";
 	cout << "\n2. Fantasia";
-	cout << "\n3. Terror";
+	cout << "\n3. Terror\n";
 	while (running) {
 		cin >> choice;
 		switch (choice) {
@@ -111,10 +120,9 @@ string Utils::chooseFromAllAvailableGenres() {
 			running = false;
 			break;
 		default:
-			cout << "\nValor inválido. Tente novamente.";
+			cout << "\nValor inválido. Tente novamente.\n";
 			break;
 		}
-
 	}
 	return genreChoice;
 
@@ -127,7 +135,7 @@ string Utils::chooseFromAllConditions() {
 	cout << "\n\nEscolha a condição do livro a ser registrado: ";
 	cout << "\n1. Novo";
 	cout << "\n2. Seminovo";
-	cout << "\n3. Acabado";
+	cout << "\n3. Acabado\n";
 	// depois a gente adiciona mais uns valores
 	while (running) {
 		cin >> choice;
@@ -145,7 +153,7 @@ string Utils::chooseFromAllConditions() {
 			running = false;
 			break;
 		default:
-			cout << "\nValor inválido. Tente novamente.";
+			cout << "\nValor inválido. Tente novamente.8";
 			break;
 		}
 
@@ -158,7 +166,7 @@ bool Utils::isBargainable() {
 
 	cout << "\nO livro é negociável? ";
 	cout << "\n1. Sim";
-	cout << "\n2. Não";
+	cout << "\n2. Não\n";
 	while (running) {
 		cin >> choice;
 		switch (choice) {
@@ -171,24 +179,87 @@ bool Utils::isBargainable() {
 			running = false;
 			break;
 		default:
-			cout << "\nValor inválido. Tente novamente.";
+			cout << "\nValor inválido. Tente novamente.\n";
 			break;
 		}
 	}
 	return answer;
 }
-string Utils::setPublishingCompany() {
-	bool running = false;
+string Utils::formatPublishingCompany() {
+	bool running = true;
 	string newPublishingCompany;
-	while (running) {
-		cout << "Insira o nome da editora: ";
-		cin >> newPublishingCompany;
-		if (!containsNumbers(newPublishingCompany) && !containsSpecialCharacters(newPublishingCompany)) {
-			running = false;
+
+	cout << "Insira o nome da editora: ";
+	// pedir pro sor explicar isso tava dando um erro insuportável sem isso
+
+	do {
+		getline(cin, newPublishingCompany);
+
+		// Chat gpt salvando vidas perguntar pro sor isso tava dando erro 
+		if (!cin) {
+			cout << "\nErro na leitura da entrada.\n";
+			cin.clear();
+			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
+
+		if (containsNumbers(newPublishingCompany) || containsSpecialCharacters(newPublishingCompany)) {
+			cout << "\nNome da editora não pode contar caracteres especiais ou números.\n";
 		}
 		else {
-			cout << "Nome da editora não pode contar caracteres especiais ou números.";
+
+			running = false;
 		}
-	} 
+	} while (running);
+
 	return newPublishingCompany;
+
+}
+int Utils::formatPageNumber() {
+	string pages;
+	int returnPages;
+	bool running = true;
+
+	cout << "\nInsira o número de páginas do livro:\n ";
+
+	while (running) {
+		cin >> pages;
+		if (!containsOnlyNumbers(pages)) {
+			cout << "\nValor inválido. O número de páginas deve ser positivo.\n";
+		}
+		else {
+			returnPages = stoi(pages);
+			if (returnPages > 0) {
+				running = false;
+			}
+			else {
+				cout << "\nValor inválido. O número de páginas deve ser positivo.\n";
+			}
+		}
+	}
+
+	return returnPages;
+}
+float Utils::formatPrice() {
+	string price;
+	float returnPrice;
+	bool running = true;
+
+	cout << "\nInsira o valor do livro: ";
+	while (running) {
+		cin >> price;
+		if (!containsOnlyNumbers(price)) {
+			cout << "\nValor inválido. O preço deve ser positivo.\n";
+		}
+		else {
+			returnPrice = stof(price);
+			if (returnPrice > 0) {
+				running = false;
+			}
+			else {
+				cout << "\nValor inválido. O preço deve ser positivo.\n";
+			}
+		}
+	}
+	return returnPrice;
 }
