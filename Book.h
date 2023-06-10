@@ -9,11 +9,11 @@
 class Book {
 public:
 	Book(string title, int pages, string bookSummary, string condition, string genre, bool bargainable, float price, string author, string publishingCompany);
-	Utils *usingUtils;
+	Utils* usingUtils;
 
 	void setTitle();
 	string getTitle();
-	
+
 	void setPages(int pages);
 	int getPages();
 
@@ -24,12 +24,13 @@ public:
 	string getCondition();
 
 	void addNewGenre();
+	//Arrumar esse get
 	string getGenres(int whichGenre);
 
 	void setBargainable();
 	bool getBargainable();
 
-	void setPrice(float price);
+	void setPrice();
 	float getPrice();
 
 	void setAuthor();
