@@ -16,18 +16,18 @@ User::User(string name, string surname, Date birthDate, string phoneNumber, stri
 void User::setNameComplete(string name, string surname) { nameComplete = name + " " + surname; }
 string User::getNameCompelte() { return nameComplete; }
 
-void User::setName(string name) { 
+void User::setName(string name) {
 	if (!usingUtils->containsSpecialCharacters(name) && !usingUtils->containsNumbers(name) && !usingUtils->containsSpace(name)) {
 		this->name = name;
 		setNameComplete(name, surname);
 	}
 	else {
 		cout << "\nValor inválido. Nomes não podem conter números, caracteres especiais ou espaço.";
-	}	
+	}
 }
 string User::getName() { return name; }
 
-void User::setSurname(string surname) { 
+void User::setSurname(string surname) {
 	if (!usingUtils->containsSpecialCharacters(surname) && !usingUtils->containsNumbers(surname)) {
 		this->surname = surname;
 		setNameComplete(name, surname);
@@ -36,13 +36,12 @@ void User::setSurname(string surname) {
 		cout << "\nValor inválido. Nomes não podem conter números ou caracteres especiais.";
 	}
 }
-		
 
 string User::getSurname() { return surname; }
 
 void User::setPhoneNumber(string phoneNumber) {
-	// FOR NOW it will only check if it has the right amount of numbers and if theres no letters or symbols
-	if(!usingUtils->containsSpecialCharacters(phoneNumber) && !usingUtils->containsSpace(phoneNumber) && usingUtils->containsOnlyNumbers(phoneNumber)) {
+	// FOR NOW it will only check if theres no letters or symbols
+	if (usingUtils->containsOnlyNumbers(phoneNumber)) {
 		this->phoneNumber = phoneNumber;
 	}
 	else {
@@ -51,7 +50,7 @@ void User::setPhoneNumber(string phoneNumber) {
 }
 string User::getPhoneNumber() { return phoneNumber; }
 
-void User::setEmail(string email) { 
+void User::setEmail(string email) {
 	if (usingUtils->isEmailValid(email)) {
 		this->email = email;
 	}
