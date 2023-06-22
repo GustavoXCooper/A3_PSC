@@ -1,0 +1,3 @@
+﻿  Main.cpp
+C:\Users\12923112259\Downloads\VendadeLivros1.0\Venda de Livros\Main.cpp(10,12): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+  Venda de Livros.vcxproj -> C:\Users\12923112259\Downloads\VendadeLivros1.0\x64\Debug\Venda de Livros.exe
